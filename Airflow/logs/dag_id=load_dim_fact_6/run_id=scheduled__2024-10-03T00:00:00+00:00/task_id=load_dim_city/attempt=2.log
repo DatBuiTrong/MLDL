@@ -1,0 +1,45 @@
+[2024-10-05T05:28:22.228+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-10-05T05:28:22.247+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: load_dim_fact_6.load_dim_city scheduled__2024-10-03T00:00:00+00:00 [queued]>
+[2024-10-05T05:28:22.256+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: load_dim_fact_6.load_dim_city scheduled__2024-10-03T00:00:00+00:00 [queued]>
+[2024-10-05T05:28:22.257+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2024-10-05T05:28:22.272+0000] {taskinstance.py:2330} INFO - Executing <Task(BigQueryInsertJobOperator): load_dim_city> on 2024-10-03 00:00:00+00:00
+[2024-10-05T05:28:22.278+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62: DeprecationWarning: This process (pid=231) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-10-05T05:28:22.279+0000] {standard_task_runner.py:64} INFO - Started process 261 to run task
+[2024-10-05T05:28:22.280+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'load_dim_fact_6', 'load_dim_city', 'scheduled__2024-10-03T00:00:00+00:00', '--job-id', '36', '--raw', '--subdir', 'DAGS_FOLDER/load_dim_fact.py', '--cfg-path', '/tmp/tmpi6h1v8m3']
+[2024-10-05T05:28:22.281+0000] {standard_task_runner.py:91} INFO - Job 36: Subtask load_dim_city
+[2024-10-05T05:28:22.333+0000] {task_command.py:426} INFO - Running <TaskInstance: load_dim_fact_6.load_dim_city scheduled__2024-10-03T00:00:00+00:00 [running]> on host 862ed47e0231
+[2024-10-05T05:28:22.416+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='load_dim_fact_6' AIRFLOW_CTX_TASK_ID='load_dim_city' AIRFLOW_CTX_EXECUTION_DATE='2024-10-03T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-10-03T00:00:00+00:00'
+[2024-10-05T05:28:22.417+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-10-05T05:28:22.423+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-10-05T05:28:22.430+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/google/cloud/operators/bigquery.py", line 2939, in execute
+    hook = BigQueryHook(
+           ^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/google/cloud/hooks/bigquery.py", line 167, in __init__
+    super().__init__(**kwargs)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/google/common/hooks/base_google.py", line 288, in __init__
+    self.extras: dict = self.get_connection(self.gcp_conn_id).extra_dejson
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/hooks/base.py", line 83, in get_connection
+    conn = Connection.get_connection_from_secrets(conn_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/connection.py", line 519, in get_connection_from_secrets
+    raise AirflowNotFoundException(f"The conn_id `{conn_id}` isn't defined")
+airflow.exceptions.AirflowNotFoundException: The conn_id `google_cloud_default` isn't defined
+[2024-10-05T05:28:22.434+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=load_dim_fact_6, task_id=load_dim_city, run_id=scheduled__2024-10-03T00:00:00+00:00, execution_date=20241003T000000, start_date=20241005T052822, end_date=20241005T052822
+[2024-10-05T05:28:22.443+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 36 for task load_dim_city (The conn_id `google_cloud_default` isn't defined; 261)
+[2024-10-05T05:28:22.453+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-10-05T05:28:22.466+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-10-05T05:28:22.468+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

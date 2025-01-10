@@ -1,0 +1,27 @@
+{
+    "name": "timescaledb-source-connector",
+    "config": {
+        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+        "tasks.max": "1",
+        "database.hostname": "timescaledb",
+        "database.port": "5432",
+        "database.user": "${file:/secrets/timescaledb_hadoop.properties:user}",
+        "database.password": "${file:/secrets/timescaledb_hadoop.properties:password}",
+        "database.dbname": "homecamera",
+
+        "schema.include.list": "_timescaledb_internal",
+        "plugin.name": "pgoutput",
+        "publication.name": "hadoop_publication",
+        
+        "slot.name" : "debezium2",
+        "topic.prefix": "getdata2",
+        
+        "transforms": "timescaledb",
+        "transforms.timescaledb.type": "io.debezium.connector.postgresql.transforms.timescaledb.TimescaleDb",
+        "transforms.timescaledb.database.hostname": "timescaledb",
+        "transforms.timescaledb.database.port": "5432",
+        "transforms.timescaledb.database.user": "${file:/secrets/timescaledb_hadoop.properties:user}",
+        "transforms.timescaledb.database.password": "${file:/secrets/timescaledb_hadoop.properties:password}",
+        "transforms.timescaledb.database.dbname": "homecamera"
+    }
+}

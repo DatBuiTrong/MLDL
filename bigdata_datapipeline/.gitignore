@@ -1,0 +1,14 @@
+app_data/
+spark_setup/backup_ivy2/
+.env
+ambari/
+connector/extra_plugins
+spark_submits/utils/__pycache__
+init_data/pypostgres/utils/__pycache__
+init_data/pypostgres/json_data
+
+
+# TODO: ignore password
+init_data/pypostgres/config/
+spark_submits/config
+connector/secrets

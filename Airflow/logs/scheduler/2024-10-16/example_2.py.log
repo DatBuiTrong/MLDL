@@ -1,0 +1,7 @@
+[2024-10-16T23:18:28.204+0000] {processor.py:161} INFO - Started process (PID=34) to work on /opt/airflow/dags/example_2.py
+[2024-10-16T23:18:28.205+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/example_2.py for tasks to queue
+[2024-10-16T23:18:28.206+0000] {logging_mixin.py:188} INFO - [2024-10-16T23:18:28.206+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/example_2.py
+[2024-10-16T23:18:28.214+0000] {processor.py:840} INFO - DAG(s) 'hello_world_dag_ZZZ' retrieved from /opt/airflow/dags/example_2.py
+[2024-10-16T23:18:28.251+0000] {logging_mixin.py:188} INFO - [2024-10-16T23:18:28.251+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2024-10-16T23:18:28.274+0000] {logging_mixin.py:188} INFO - [2024-10-16T23:18:28.274+0000] {dag.py:3947} INFO - Setting next_dagrun for hello_world_dag_ZZZ to 2024-10-15 00:00:00+00:00, run_after=2024-10-16 00:00:00+00:00
+[2024-10-16T23:18:28.296+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/example_2.py took 0.096 seconds

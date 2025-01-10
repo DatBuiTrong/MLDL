@@ -1,0 +1,1 @@
+# This folder has scripts to get data from APIs

@@ -1,0 +1,149 @@
+version: "3"
+
+name: three_datanodes
+
+services:
+  # master: (namenode + resourcemanager)
+  namenode:
+    build: 
+      context: ./namenode
+    image: docker.io/library/my_hadoop_3.2.4:namenode 
+    container_name: namenode
+    working_dir: /root
+    restart: always
+    ports:
+      - 9870:9870
+      - 9000:9000
+    volumes:
+      - ./data/namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_network
+
+  # workers: (datanode + nodemanager)x3
+  datanode1:
+    build: 
+      context: ./datanode
+    image: docker.io/library/my_hadoop_3.2.4:datanode 
+    container_name: datanode1
+    restart: always
+    volumes:
+      - ./data/datanode1:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_network
+  
+  datanode2:
+    build: 
+      context: ./datanode
+    image: docker.io/library/my_hadoop_3.2.4:datanode 
+    container_name: datanode2
+    restart: always
+    volumes:
+      - ./data/datanode2:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_network
+  
+  datanode3:
+    build: 
+      context: ./datanode
+    image: docker.io/library/my_hadoop_3.2.4:datanode 
+    container_name: datanode3
+    restart: always
+    volumes:
+      - ./data/datanode3:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_network
+
+  # master
+  resourcemanager:
+    build: 
+      context: ./resourcemanager
+    image: docker.io/library/my_hadoop_3.2.4:resourcemanager 
+    container_name: resourcemanager
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 datanode3:9864"
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_network
+
+  nodemanager1:
+    build: 
+      context: ./nodemanager
+    image: docker.io/library/my_hadoop_3.2.4:nodemanager 
+    container_name: nodemanager1
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_network
+  
+  nodemanager2:
+    build: 
+      context: ./nodemanager
+    image: docker.io/library/my_hadoop_3.2.4:nodemanager 
+    container_name: nodemanager2
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode2:9864 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_network
+
+  nodemanager3:
+    build: 
+      context: ./nodemanager
+    image: docker.io/library/my_hadoop_3.2.4:nodemanager 
+    container_name: nodemanager3
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode3:9864 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_network
+
+  historyserver:
+    build: 
+      context: ./historyserver
+    image: docker.io/library/my_hadoop_3.2.4:historyserver 
+    container_name: historyserver
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 datanode3:9864 resourcemanager:8088"
+    volumes:
+      - ./data/historyserver:/hadoop/yarn/timeline
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_network
+  
+networks:
+  hadoop_network:
+    driver: bridge
+
+# volumes:
+#   hadoop_namenode:
+#   hadoop_datanode1:
+#   hadoop_datanode2:
+#   hadoop_datanode3:
+#   hadoop_historyserver:

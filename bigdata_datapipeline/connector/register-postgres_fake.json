@@ -1,0 +1,16 @@
+{
+    "name": "pricing-connector1",
+    "config": {
+        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+        "tasks.max": "1",
+        "database.hostname": "timescaledb",
+        "database.port": "5432",
+        "database.user": "${file:/secrets/timescaledb_hadoop.properties:user}",
+        "database.password": "${file:/secrets/timescaledb_hadoop.properties:password}",
+        "database.dbname" : "homecamera",
+        "topic.prefix": "dbserver1234",
+        "schema.include.list": "data",
+        "table.include.list": "pricing",
+        "slot.name" : "vt"
+    }
+}

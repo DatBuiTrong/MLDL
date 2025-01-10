@@ -1,0 +1,7 @@
+[2024-10-16T23:18:29.225+0000] {processor.py:161} INFO - Started process (PID=61) to work on /opt/airflow/dags/load_dim_fact.py
+[2024-10-16T23:18:29.225+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/load_dim_fact.py for tasks to queue
+[2024-10-16T23:18:29.227+0000] {logging_mixin.py:188} INFO - [2024-10-16T23:18:29.227+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/load_dim_fact.py
+[2024-10-16T23:18:29.238+0000] {processor.py:840} INFO - DAG(s) 'load_dim_fact_6' retrieved from /opt/airflow/dags/load_dim_fact.py
+[2024-10-16T23:18:29.255+0000] {logging_mixin.py:188} INFO - [2024-10-16T23:18:29.255+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2024-10-16T23:18:29.272+0000] {logging_mixin.py:188} INFO - [2024-10-16T23:18:29.272+0000] {dag.py:3947} INFO - Setting next_dagrun for load_dim_fact_6 to 2024-10-13 00:00:00+00:00, run_after=2024-10-14 00:00:00+00:00
+[2024-10-16T23:18:29.287+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/load_dim_fact.py took 0.066 seconds
